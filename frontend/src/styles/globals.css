@@ -380,3 +380,82 @@ body {
   font-size: 13px;
   line-height: 1.5;
 }
+
+/* ── Histórico por período ───────────────── */
+
+.history {
+  margin-top: 16px;
+}
+
+.history__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+  margin-bottom: 16px;
+}
+
+.history__filters label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--text-3);
+}
+
+.history__filters input {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-1);
+  padding: 6px 8px;
+  font: inherit;
+  color-scheme: dark;
+}
+
+.history__filters button {
+  background: var(--blue);
+  border: 0;
+  border-radius: var(--radius-sm);
+  color: #fff;
+  padding: 7px 14px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.history__filters button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.history__summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.history__summary div {
+  background: var(--bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.history__summary span {
+  font-size: 11px;
+  color: var(--text-3);
+}
+
+.history__summary strong {
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+}
+
+.history__error {
+  color: var(--red);
+  margin-bottom: 12px;
+}

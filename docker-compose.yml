@@ -12,6 +12,25 @@ services:
       - mqtt_data:/mosquitto/data
       - mqtt_logs:/mosquitto/log
 
+  # ─── Banco de dados (PostgreSQL) ────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=sensorhub
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d sensorhub"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
   # ─── Backend (NestJS) ───────────────────────────────────────────────────────
   backend:
     build: ./backend
@@ -22,8 +41,16 @@ services:
     environment:
       - MQTT_BROKER=mqtt-broker
       - MQTT_PORT=1883
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=sensorhub
     depends_on:
-      - mqtt-broker
+      mqtt-broker:
+        condition: service_started
+      postgres:
+        condition: service_healthy
 
   # ─── Frontend (Vite + React) ────────────────────────────────────────────────
   frontend:
@@ -50,3 +77,4 @@ services:
 volumes:
   mqtt_data:
   mqtt_logs:
+  pg_data:

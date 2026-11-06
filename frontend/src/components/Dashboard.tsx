@@ -2,6 +2,7 @@ import Header from './Header';
 import SensorCard from './SensorCard';
 import SensorChart from './SensorChart';
 import AlertPanel from './AlertPanel';
+import HistoryPanel from './HistoryPanel';
 import { useSocket } from '../hooks/useSocket';
 
 export default function Dashboard() {
@@ -68,6 +69,8 @@ export default function Dashboard() {
           <SensorChart history={history} />
           <AlertPanel alerts={alerts} onDismiss={dismissAlert} />
         </div>
+
+        <HistoryPanel />
       </div>
     </div>
   );
